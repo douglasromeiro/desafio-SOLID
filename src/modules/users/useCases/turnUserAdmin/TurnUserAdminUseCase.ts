@@ -11,9 +11,13 @@ class TurnUserAdminUseCase {
   execute({ user_id }: IRequest): User {
     const user = this.usersRepository.findById(user_id);
 
-    this.usersRepository.turnAdmin(user);
+    if (!user) {
+      throw new Error("Não existe nenhum usuário com esse e-mail!");
+    }
 
-    return user;
+    const userAdmin = this.usersRepository.turnAdmin(user);
+
+    return userAdmin;
   }
 }
 
