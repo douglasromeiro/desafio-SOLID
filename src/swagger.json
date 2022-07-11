@@ -1,0 +1,235 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SOLID Desafio Documentation",
+        "description": "This is an API SOLID Desafio",
+        "version": "1.0.0",
+        "contact": {
+            "email": "douglasromeiro320@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Douglas Romeiro",
+                                    "email": "douglas@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                            "properties":{
+                                                "id":{
+                                                    "type":"string"
+                                                },
+                                                "name":{
+                                                    "type":"string"
+                                                },
+                                                "email":{
+                                                    "type":"string"
+                                                },
+                                                "admin":{ 
+                                                    "type": "boolean" 
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User already exists"
+                    }
+                
+            },
+            "get": {
+                "tags": ["User"],
+                "summary": "List User",
+                "description": "List all users",
+                "parameters":[
+                    {
+                        "name":"user_id",
+                        "in":"path",
+                        "required": true,
+                        "description": "required id user to check if user is admin"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": { 
+                                                "type": "string"
+                                            },
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "admin":{ 
+                                                "type": "boolean" 
+                                            },
+                                            "created_at":{
+                                                "type": "Date"
+                                            },
+                                            "updated_at": {
+                                                "type": "Date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "patch": {
+                "tags": ["User"],
+                "summary": "Update user to admin",
+                "description": "Update user to admin",
+                "parameters":[
+                    {
+                        "name":"user_id",
+                        "in":"header",
+                        "required": true,
+                        "description": "required id user"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                            "properties":{
+                                                "name":{
+                                                    "type":"string"
+                                                },
+                                                "email":{
+                                                    "type":"string"
+                                                },
+                                                "admin":{ 
+                                                    "type": "boolean" 
+                                                },
+                                                "updated_at": {
+                                                    "type": "Date"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User not exists"
+                    }
+                
+            },
+            "get": {
+                "tags": ["User"],
+                "summary": "Get a user",
+                "description": "List user",
+                "parameters":[
+                    {
+                        "name":"user_id",
+                        "in":"header",
+                        "required": true,
+                        "description": "required id user"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "admin":{ 
+                                                "type": "boolean" 
+                                            },
+                                            "created_at":{
+                                                "type": "Date"
+                                            },
+                                            "updated_at": {
+                                                "type": "Date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "User not exists"
+                }
+            }
+        }
+    }
+}
